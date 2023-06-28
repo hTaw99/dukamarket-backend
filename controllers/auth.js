@@ -48,9 +48,9 @@ export const register = async (req, res) => {
     //   process.env.NODE_ENV === "production"
     //     ? "elgendy-admin-dashboard.vercel.app"
     //     : "localhost",
-    domain: "localhost:5173",
+    domain: "localhost",
     httpOnly: true, //accessible only by web server
-    sameSite: false,
+    sameSite: true,
     secure: process.env.NODE_ENV === "production",
     maxAge: 1000 * 60 * 60 * 24, //cookie expiry: set to match rT
   });
@@ -101,9 +101,9 @@ export const login = async (req, res) => {
     //   process.env.NODE_ENV === "production"
     //     ? "elgendy-admin-dashboard.vercel.app"
     //     : "localhost",
-    domain: "localhost:5173",
+    domain: "localhost",
     httpOnly: true, //accessible only by web server
-    sameSite: false,
+    sameSite: true,
     secure: process.env.NODE_ENV === "production",
     // maxAge: 1000 * 20, //cookie expiry: set to match refresh Token
     expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
@@ -263,9 +263,9 @@ export const resetPassword = async (req, res, next) => {
       //   process.env.NODE_ENV === "production"
       //     ? "elgendy-admin-dashboard.vercel.app"
       //     : "localhost",
-      domain: "localhost:5173",
+      domain: "localhost",
       httpOnly: true, //accessible only by web server
-      sameSite: false,
+      sameSite: true,
       secure: process.env.NODE_ENV === "production",
       expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
     });
