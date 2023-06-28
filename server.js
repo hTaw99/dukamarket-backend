@@ -32,7 +32,6 @@ import trim from "./middlewares/trim.js";
 import notFoundMiddleware from "./middlewares/not-found.js";
 import errorHandlerMiddleware from "./middlewares/error-handler.js";
 
-
 dotenv.config();
 connectDb();
 
@@ -56,7 +55,9 @@ app.use(
       // "http://localhost:5174",
       // "http://127.0.0.1:5174",
       // "http://127.0.0.1:5173",
-      process.env.ORIGIN
+
+      "https://dukamarket.vercel.app",
+      process.env.ORIGIN,
     ],
     credentials: true,
     methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],

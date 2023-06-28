@@ -44,11 +44,10 @@ export const register = async (req, res) => {
 
   // Create secure cookie with refresh token
   res.cookie("ishop-refresh-token", refreshToken, {
-    // domain:
-    //   process.env.NODE_ENV === "production"
-    //     ? "elgendy-admin-dashboard.vercel.app"
-    //     : "localhost",
-    domain: "localhost",
+    domain:
+      process.env.NODE_ENV === "production"
+        ? "dukamarket.vercel.app"
+        : "localhost",
     httpOnly: true, //accessible only by web server
     sameSite: true,
     secure: process.env.NODE_ENV === "production",
@@ -97,11 +96,10 @@ export const login = async (req, res) => {
 
   // Create secure cookie with refresh token
   res.cookie("ishop-refresh-token", refreshToken, {
-    // domain:
-    //   process.env.NODE_ENV === "production"
-    //     ? "elgendy-admin-dashboard.vercel.app"
-    //     : "localhost",
-    domain: "localhost",
+    domain:
+      process.env.NODE_ENV === "production"
+        ? "dukamarket.vercel.app"
+        : "localhost",
     httpOnly: true, //accessible only by web server
     sameSite: true,
     secure: process.env.NODE_ENV === "production",
@@ -259,11 +257,11 @@ export const resetPassword = async (req, res, next) => {
     });
 
     res.cookie("ishop-refresh-token", refreshToken, {
-      // domain:
-      //   process.env.NODE_ENV === "production"
-      //     ? "elgendy-admin-dashboard.vercel.app"
-      //     : "localhost",
-      domain: "localhost",
+      domain:
+        process.env.NODE_ENV === "production"
+          ? "dukamarket.vercel.app"
+          : "localhost",
+
       httpOnly: true, //accessible only by web server
       sameSite: true,
       secure: process.env.NODE_ENV === "production",
