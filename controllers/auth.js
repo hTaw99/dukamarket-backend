@@ -98,7 +98,7 @@ export const login = async (req, res) => {
   res.cookie("ishop-refresh-token", refreshToken, {
     domain:
       process.env.NODE_ENV === "production"
-        ? "dukamarket.vercel.app"
+        ? "https://dukamarket.vercel.app"
         : "localhost",
     httpOnly: true, //accessible only by web server
     sameSite: true,
