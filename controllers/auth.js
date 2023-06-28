@@ -48,7 +48,7 @@ export const register = async (req, res) => {
     //   process.env.NODE_ENV === "production"
     //     ? "elgendy-admin-dashboard.vercel.app"
     //     : "localhost",
-    domain: "localhost",
+    domain: "localhost:5173",
     httpOnly: true, //accessible only by web server
     sameSite: false,
     secure: process.env.NODE_ENV === "production",
@@ -101,7 +101,7 @@ export const login = async (req, res) => {
     //   process.env.NODE_ENV === "production"
     //     ? "elgendy-admin-dashboard.vercel.app"
     //     : "localhost",
-    domain: "localhost",
+    domain: "localhost:5173",
     httpOnly: true, //accessible only by web server
     sameSite: false,
     secure: process.env.NODE_ENV === "production",
@@ -263,7 +263,7 @@ export const resetPassword = async (req, res, next) => {
       //   process.env.NODE_ENV === "production"
       //     ? "elgendy-admin-dashboard.vercel.app"
       //     : "localhost",
-      domain: "localhost",
+      domain: "localhost:5173",
       httpOnly: true, //accessible only by web server
       sameSite: false,
       secure: process.env.NODE_ENV === "production",
