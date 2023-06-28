@@ -14,7 +14,6 @@ export const getCart = async (req, res) => {
   const refreshToken = cookies["ishop-refresh-token"];
   const decoded = refreshToken ? jwt_decode(refreshToken) : null;
 
-
   const cart = await Cart.findOne({
     $or: [
       { $and: [{ user: { $exists: true } }, { user: decoded?._id }] },
@@ -24,7 +23,6 @@ export const getCart = async (req, res) => {
     path: "items.product items.selectedColor",
     select: "name price images priceAfterDiscount",
   });
-
 
   if (!cart) {
     return res.status(StatusCodes.CREATED).json({ message: "No Cart Found" });
@@ -76,7 +74,10 @@ export const addItemToCart = async (req, res) => {
 
     const newCart = await Cart.create(cartData);
     if (!refreshToken) {
-      res.cookie("cart_id", newCart.id);
+      res.cookie("cart_id", newCart.id, {
+        domain: "localhost",
+      });
+      // res.cookie("cart_id", newCart.id);
     }
 
     return res.status(StatusCodes.CREATED).json({ cart: newCart });

@@ -44,10 +44,11 @@ export const register = async (req, res) => {
 
   // Create secure cookie with refresh token
   res.cookie("ishop-refresh-token", refreshToken, {
-    domain:
-      process.env.NODE_ENV === "production"
-        ? "elgendy-admin-dashboard.vercel.app"
-        : "localhost",
+    // domain:
+    //   process.env.NODE_ENV === "production"
+    //     ? "elgendy-admin-dashboard.vercel.app"
+    //     : "localhost",
+    domain: "localhost",
     httpOnly: true, //accessible only by web server
     // sameSite: false,
     secure: process.env.NODE_ENV === "production",
@@ -96,10 +97,11 @@ export const login = async (req, res) => {
 
   // Create secure cookie with refresh token
   res.cookie("ishop-refresh-token", refreshToken, {
-    domain:
-      process.env.NODE_ENV === "production"
-        ? "elgendy-admin-dashboard.vercel.app"
-        : "localhost",
+    // domain:
+    //   process.env.NODE_ENV === "production"
+    //     ? "elgendy-admin-dashboard.vercel.app"
+    //     : "localhost",
+    domain: "localhost",
     httpOnly: true, //accessible only by web server
     // sameSite: false,
     secure: process.env.NODE_ENV === "production",
@@ -181,7 +183,6 @@ export const forgotPassword = async (req, res) => {
       status: "success",
       message: "OTP sent to email!",
     });
-
   } catch (err) {
     if (user) {
       user.otp = undefined;
@@ -215,7 +216,6 @@ export const verifyOtp = async (req, res, next) => {
     res
       .status(StatusCodes.OK)
       .json({ status: "success", resetToken, message: "Verified OTP" });
-
   } catch (err) {
     res.status(400).json({
       status: "fail",
@@ -247,9 +247,6 @@ export const resetPassword = async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
 
     // 3) Update "changedPasswordAt" property for the user
-          
-
-
 
     // 4) Log the user in, and send JWT
 
@@ -262,10 +259,11 @@ export const resetPassword = async (req, res, next) => {
     });
 
     res.cookie("ishop-refresh-token", refreshToken, {
-      domain:
-        process.env.NODE_ENV === "production"
-          ? "elgendy-admin-dashboard.vercel.app"
-          : "localhost",
+      // domain:
+      //   process.env.NODE_ENV === "production"
+      //     ? "elgendy-admin-dashboard.vercel.app"
+      //     : "localhost",
+      domain: "localhost",
       httpOnly: true, //accessible only by web server
       // sameSite: false,
       secure: process.env.NODE_ENV === "production",
