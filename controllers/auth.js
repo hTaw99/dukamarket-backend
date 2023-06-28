@@ -49,7 +49,7 @@ export const register = async (req, res) => {
         ? "dukamarket.vercel.app"
         : "localhost",
     httpOnly: true, //accessible only by web server
-    sameSite: true,
+    sameSite: "Strict",
     secure: process.env.NODE_ENV === "production",
     maxAge: 1000 * 60 * 60 * 24, //cookie expiry: set to match rT
   });
@@ -98,10 +98,10 @@ export const login = async (req, res) => {
   res.cookie("ishop-refresh-token", refreshToken, {
     domain:
       process.env.NODE_ENV === "production"
-        ? "https://dukamarket.vercel.app"
+        ? "dukamarket.vercel.app"
         : "localhost",
     httpOnly: true, //accessible only by web server
-    sameSite: true,
+    sameSite: "Strict",
     secure: process.env.NODE_ENV === "production",
     // maxAge: 1000 * 20, //cookie expiry: set to match refresh Token
     expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
@@ -263,7 +263,7 @@ export const resetPassword = async (req, res, next) => {
           : "localhost",
 
       httpOnly: true, //accessible only by web server
-      sameSite: true,
+      sameSite: "Strict",
       secure: process.env.NODE_ENV === "production",
       expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
     });
