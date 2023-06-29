@@ -215,7 +215,7 @@ export const afterPayment = async (req, res) => {
 
   res.redirect(
     301,
-    `http://localhost:5173/checkout/order/${req.query.order}?success=${
+    `http://dukamarket.vercel.app/checkout/order/${req.query.order}?success=${
       req.query.success
     }&validation=${hash === req.query.hmac}`
   );
