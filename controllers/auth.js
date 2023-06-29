@@ -44,10 +44,6 @@ export const register = async (req, res) => {
 
   // Create secure cookie with refresh token
   res.cookie("ishop-refresh-token", refreshToken, {
-    domain:
-      process.env.NODE_ENV === "production"
-        ? "dukamarket.vercel.app"
-        : "localhost",
     httpOnly: true, //accessible only by web server
     sameSite: "None",
     secure: process.env.NODE_ENV === "production",
@@ -98,11 +94,9 @@ export const login = async (req, res) => {
     //   process.env.NODE_ENV === "production"
     //     ? "dukamarket.vercel.app"
     //     : "localhost",
-    domain: "dukamarket.vercel.app",
     httpOnly: true, //accessible only by web server
-    sameSite: true,
-    // secure: process.env.NODE_ENV === "production",
-    secure: true,
+    sameSite: "None",
+    secure: process.env.NODE_ENV === "production",
     // maxAge: 1000 * 20, //cookie expiry: set to match refresh Token
     expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
   });
@@ -147,7 +141,7 @@ export const logout = (req, res) => {
     return res.status(StatusCodes.NO_CONTENT).json({ message: "No content" });
   res.clearCookie("ishop-refresh-token", {
     httpOnly: true,
-    sameSite: false,
+    sameSite: "None",
     secure: process.env.NODE_ENV === "production",
   });
   res.json({ message: "Cookie cleared" });
