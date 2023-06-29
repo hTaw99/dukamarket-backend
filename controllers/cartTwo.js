@@ -74,7 +74,9 @@ export const addItemToCart = async (req, res) => {
 
     const newCart = await Cart.create(cartData);
     if (!refreshToken) {
-      res.cookie("cart_id", newCart.id);
+      res.cookie("cart_id", newCart.id, {
+        sameSite: "None",
+      });
       // res.cookie("cart_id", newCart.id);
     }
 
