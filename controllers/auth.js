@@ -62,8 +62,6 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
   const cartId = req.cookies["cart_id"];
 
-  console.log(cartId);
-
   if (!email || !password) {
     throw new CustomError.BadRequestError("Please provide email and password");
   }
@@ -96,13 +94,15 @@ export const login = async (req, res) => {
 
   // Create secure cookie with refresh token
   res.cookie("ishop-refresh-token", refreshToken, {
-    domain:
-      process.env.NODE_ENV === "production"
-        ? "dukamarket.vercel.app"
-        : "localhost",
+    // domain:
+    //   process.env.NODE_ENV === "production"
+    //     ? "dukamarket.vercel.app"
+    //     : "localhost",
+    domain: "dukamarket.vercel.app",
     httpOnly: true, //accessible only by web server
-    sameSite: false,
-    secure: process.env.NODE_ENV === "production",
+    sameSite: true,
+    // secure: process.env.NODE_ENV === "production",
+    secure: true,
     // maxAge: 1000 * 20, //cookie expiry: set to match refresh Token
     expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
   });
