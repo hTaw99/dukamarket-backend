@@ -101,7 +101,7 @@ export const login = async (req, res) => {
         ? "dukamarket.vercel.app"
         : "localhost",
     httpOnly: true, //accessible only by web server
-    sameSite: "None",
+    sameSite: false,
     secure: process.env.NODE_ENV === "production",
     // maxAge: 1000 * 20, //cookie expiry: set to match refresh Token
     expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),

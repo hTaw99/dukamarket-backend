@@ -76,8 +76,7 @@ export const addItemToCart = async (req, res) => {
     if (!refreshToken) {
       res.cookie("cart_id", newCart.id, {
         domain: "dukamarket.vercel.app",
-        sameSite: "None",
-        httpOnly: false,
+        sameSite: false,
         // secure: process.env.NODE_ENV === "production"
       });
       // res.cookie("cart_id", newCart.id);
