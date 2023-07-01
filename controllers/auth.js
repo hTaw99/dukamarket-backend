@@ -9,8 +9,8 @@ import crypto from "crypto";
 
 export const register = async (req, res) => {
   // ####################################
-  const cookies = req.cookies;
-  const cartId = cookies["cart_id"];
+  // const cookies = req.cookies;
+  // const cartId = cookies["cart_id"];
   // ####################################
 
   const { email, name, password } = req.body;
@@ -30,7 +30,6 @@ export const register = async (req, res) => {
     name,
     password,
     role,
-    cart: cartId,
   });
 
   // Create Token User
@@ -156,21 +155,21 @@ export const forgotPassword = async (req, res) => {
     if (!user) {
       throw "Email you entered not found";
     }
-
     // 2) Generate rondom Password token that we send back it to user
     const otp = user.createOtp();
     await user.save({ validateBeforeSave: false });
-
+    console.log(otp)
+    
     // 3) send io user's email via NODEMAILER
     const message = `Forgot your password? Your OTP is ${otp}`;
-    const html = req.body.html;
-    const email = html.replace("number", otp);
+    // const html = req.body.html;
+    // const email = html.replace("number", otp);
 
     await sendEmail({
       message,
       email: user.email,
       subject: "Your Otp code (valid for 3 min)",
-      html: email,
+      // html: email,
     });
 
     res.status(StatusCodes.OK).json({

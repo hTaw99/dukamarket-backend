@@ -39,16 +39,16 @@ const userSchema = new Schema(
       enum: ["admin", "user"],
       default: "user",
     },
-    address: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Address",
-      },
-    ],
-    cart: {
-      type: Schema.Types.ObjectId,
-      ref: "Cart",
-    },
+    // address: [
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: "Address",
+    //   },
+    // ],
+    // cart: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Cart",
+    // },
   },
   {
     methods: {
@@ -140,19 +140,22 @@ userSchema.pre("save", function (next) {
   if (!this.isModified("password") || this.isNew) return next();
   this.passwordChangedAt = Date.now();
 
+
   next();
 });
 
-userSchema.post("save", async function () {
-  if (this.cart) {
-    const cart = await Cart.findById(this.cart);
-    // This check is very important prevent from looping , and put cart.user once not again & again
-    if (!cart.user) {
-      cart.user = this._id;
-      await cart.save();
-    }
-  }
-});
+// userSchema.post("save", async function () {
+//   if (this.cart) {
+//     const cart = await Cart.findById(this.cart);
+    
+
+//     // This check is very important prevent from looping , and put cart.user once not again & again
+//     if (!cart?.user) {
+//       cart.user = this._id;
+//       await cart.save();
+//     }
+//   }
+// });
 
 const User = model("User", userSchema);
 export default User;

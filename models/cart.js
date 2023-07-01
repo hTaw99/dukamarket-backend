@@ -59,16 +59,16 @@ const cartSchema = new Schema(
   }
 );
 
-cartSchema.post("save", async function () {
-  if (this.user) {
-    const user = await User.findById(this.user);
-    // This check is very important prevent from looping , and put user.cart once not again & again
-    if (!user.cart) {
-      user.cart = this._id;
-      await user.save();
-    }
-  }
-});
+// cartSchema.post("save", async function () {
+//   if (this.user) {
+//     const user = await User.findById(this.user);
+//     // This check is very important prevent from looping , and put user.cart once not again & again
+//     if (!user.cart) {
+//       user.cart = this._id;
+//       await user.save();
+//     }
+//   }
+// });
 
 cartSchema.pre("remove", async function () {
   if (this.user) {
