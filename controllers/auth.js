@@ -42,6 +42,8 @@ export const register = async (req, res) => {
     expiresIn: "1d",
   });
 
+
+
   // Create secure cookie with refresh token
   res.cookie("ishop-refresh-token", refreshToken, {
     httpOnly: true, //accessible only by web server
