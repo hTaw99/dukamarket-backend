@@ -13,7 +13,7 @@ export const register = async (req, res) => {
   // const cartId = cookies["cart_id"];
   // ####################################
 
-  const { email, name, password } = req.body;
+  const { email, name, password, emailToSend } = req.body;
 
   const emailUser = await User.findOne({ email });
 
@@ -31,6 +31,12 @@ export const register = async (req, res) => {
     password,
     role,
   });
+  await sendEmail({
+    message: "Welcome to dukamarket",
+    email: user.email,
+    subject: "Welcome to dukamarket",
+    html: emailToSend,
+  });
 
   // Create Token User
   const tokenUser = createTokenUser(user);
@@ -40,8 +46,6 @@ export const register = async (req, res) => {
   const refreshToken = jwt.sign(tokenUser, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: "1d",
   });
-
-
 
   // Create secure cookie with refresh token
   res.cookie("ishop-refresh-token", refreshToken, {
@@ -85,7 +89,6 @@ export const login = async (req, res) => {
   const geustCart = await Cart.findById(cartId);
   const userCart = await Cart.findOne({ user: user._id });
 
-  console.log({ userCart, geustCart });
 
   user.mergeGuestAndUserCarts(geustCart, userCart);
 
@@ -98,6 +101,7 @@ export const login = async (req, res) => {
     httpOnly: true, //accessible only by web server
     sameSite: "None",
     secure: process.env.NODE_ENV === "production",
+    // secure: true,
     // maxAge: 1000 * 20, //cookie expiry: set to match refresh Token
     expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
   });
@@ -142,7 +146,7 @@ export const logout = (req, res) => {
     return res.status(StatusCodes.NO_CONTENT).json({ message: "No content" });
   res.clearCookie("ishop-refresh-token", {
     httpOnly: true,
-    sameSite: "None",
+    // sameSite: "None",
     secure: process.env.NODE_ENV === "production",
   });
   res.json({ message: "Cookie cleared" });
@@ -158,8 +162,8 @@ export const forgotPassword = async (req, res) => {
     // 2) Generate rondom Password token that we send back it to user
     const otp = user.createOtp();
     await user.save({ validateBeforeSave: false });
-    console.log(otp)
-    
+    console.log(otp);
+
     // 3) send io user's email via NODEMAILER
     const message = `Forgot your password? Your OTP is ${otp}`;
     // const html = req.body.html;

@@ -161,7 +161,7 @@ export const afterPayment = async (req, res) => {
   // res.status(StatusCodes.CREATED).json({ req });
   // res.send({ isSuccess: req.query.success });
 
-  console.log(req.query);
+  console.log(req.query)
 
   const source_data_pan = req.query["source_data.pan"];
   const source_data_sub_type = req.query["source_data.sub_type"];
