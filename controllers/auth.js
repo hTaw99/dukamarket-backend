@@ -147,7 +147,7 @@ export const logout = (req, res) => {
   res.clearCookie("ishop-refresh-token", {
     httpOnly: true,
     // sameSite: "None",
-    secure: process.env.NODE_ENV === "production",
+    // secure: process.env.NODE_ENV === "production",
   });
   res.json({ message: "Cookie cleared" });
 };
