@@ -51,7 +51,8 @@ export const register = async (req, res) => {
   res.cookie("ishop-refresh-token", refreshToken, {
     httpOnly: true, //accessible only by web server
     sameSite: "None",
-    secure: process.env.NODE_ENV === "production",
+    // secure: process.env.NODE_ENV === "production",
+    secure: true,
     maxAge: 1000 * 60 * 60 * 24, //cookie expiry: set to match rT
   });
   // res.clearCookie("cart_id");
@@ -100,8 +101,8 @@ export const login = async (req, res) => {
     //     : "localhost",
     httpOnly: true, //accessible only by web server
     sameSite: "None",
-    secure: process.env.NODE_ENV === "production",
-    // secure: true,
+    // secure: process.env.NODE_ENV === "production",
+    secure: true,
     // maxAge: 1000 * 20, //cookie expiry: set to match refresh Token
     expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
   });
@@ -147,7 +148,8 @@ export const logout = (req, res) => {
   res.clearCookie("ishop-refresh-token", {
     httpOnly: true,
     sameSite: "None",
-    secure: process.env.NODE_ENV === "production",
+    // secure: process.env.NODE_ENV === "production",
+    secure: true,
   });
   res.json({ message: "Cookie cleared" });
 };
@@ -263,7 +265,8 @@ export const resetPassword = async (req, res, next) => {
 
       httpOnly: true, //accessible only by web server
       sameSite: true,
-      secure: process.env.NODE_ENV === "production",
+      // secure: process.env.NODE_ENV === "production",
+      secure:true,
       expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
     });
 

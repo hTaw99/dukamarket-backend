@@ -9,9 +9,9 @@ import jwt_decode from "jwt-decode";
 
 export const getCart = async (req, res) => {
   const cookies = req.cookies;
-  const cartId = cookies["cart_id"];
-
-  const refreshToken = cookies["ishop-refresh-token"];
+  const cartId = cookies["cart_id"] || req.body.cartId;
+  
+  const refreshToken = cookies["ishop-refresh-token"] || req.body.refreshToken;
   const decoded = refreshToken ? jwt_decode(refreshToken) : null;
 
   const cart = await Cart.findOne({
