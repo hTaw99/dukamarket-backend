@@ -58,6 +58,7 @@ app.use(
       // "http://127.0.0.1:5173",
 
       "https://dukamarket.vercel.app",
+      "https://dukamarket-nextjs-frontend.vercel.app",
       // process.env.ORIGIN,
     ],
     credentials: true,
