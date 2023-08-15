@@ -90,7 +90,6 @@ export const login = async (req, res) => {
   const geustCart = await Cart.findById(cartId);
   const userCart = await Cart.findOne({ user: user._id });
 
-
   user.mergeGuestAndUserCarts(geustCart, userCart);
 
   // Create secure cookie with refresh token
@@ -155,6 +154,26 @@ export const logout = (req, res) => {
 };
 
 export const forgotPassword = async (req, res) => {
+  // ##########################################################################
+  // const formatTime = (time) => {
+  //   let min = Math.floor(time / 60);
+  //   let sec = Math.floor(time - min * 60);
+
+  //   if (min <= 10) min = "0" + min;
+  //   if (sec <= 10) sec = "0" + sec;
+
+  //   return min + ":" + sec;
+  // };
+  // let timeInSecond = 3 * 60;
+  // const countdown = setInterval(() => {
+  //   timeInSecond--;
+  //   formatTime(timeInSecond);
+  //   if (timeInSecond <= 0 || timeInSecond < 1) clearInterval(countdown);
+  // }, 1000);
+  // ##########################################################################
+
+  const { emailToSend } = req.body;
+
   const user = await User.findOne({ email: req.body.email });
   try {
     // 1) check if user found or not
@@ -164,18 +183,14 @@ export const forgotPassword = async (req, res) => {
     // 2) Generate rondom Password token that we send back it to user
     const otp = user.createOtp();
     await user.save({ validateBeforeSave: false });
-    console.log(otp);
 
     // 3) send io user's email via NODEMAILER
-    const message = `Forgot your password? Your OTP is ${otp}`;
-    // const html = req.body.html;
-    // const email = html.replace("number", otp);
-
+    const emailHtml = emailToSend.replace("MYOTP", otp);
     await sendEmail({
-      message,
+      message: `Forgot your password? Enter your Otp to complete your reseting password `,
       email: user.email,
       subject: "Your Otp code (valid for 3 min)",
-      // html: email,
+      html: emailHtml,
     });
 
     res.status(StatusCodes.OK).json({
@@ -266,7 +281,7 @@ export const resetPassword = async (req, res, next) => {
       httpOnly: true, //accessible only by web server
       sameSite: true,
       // secure: process.env.NODE_ENV === "production",
-      secure:true,
+      secure: true,
       expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
     });
 
